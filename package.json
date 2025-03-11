@@ -5,7 +5,8 @@
   "scripts": {
     "start": "ts-node script.ts ./data/input.json ./data en",
     "build": "tsc",
-    "pg-translate": "translate"
+    "i18n-translate": "translate",
+    "google-translate": "node src/scripts/GoogleTranslate/index.js"
   },
   "keywords": [
     "translate",
@@ -17,7 +18,8 @@
   "license": "ISC",
   "dependencies": {
     "axios": "^0.27.2",
-    "cheerio": "^1.0.0",
+    "htmlparser2": "^10.0.0",
+    "inquirer": "^12.4.3",
     "language-translate": "^2.2.5",
     "p-limit": "^6.2.0",
     "stream-json": "^1.9.1"
