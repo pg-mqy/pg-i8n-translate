@@ -12,7 +12,7 @@ npm run i18n-translate
 ```
 
 ### 3. 嵌套数组和html的json文件
-可执行 src/scripts/GoogleTranslate目录下的index.js文件，调用谷歌API进行翻译：c
+可执行 src/scripts/GoogleTranslate目录下的index.js文件，调用谷歌API进行翻译：
 ```
 npm run google-translate
 ```
