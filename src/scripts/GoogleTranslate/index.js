@@ -3,20 +3,16 @@ const path = require('path');
 const inquirer = require('inquirer').default;
 const tunnel = require('tunnel');
 const googleTranslate = require('@vitalets/google-translate-api');
-const { parseDocument, DomUtils } = require('htmlparser2');
+const {parseDocument, DomUtils} = require('htmlparser2');
 
 // **代理服务器配置**
 const agent = tunnel.httpsOverHttp({
     proxy: {
         host: '127.0.0.1',
         port: 7890,
-        headers: { 'User-Agent': 'Node' }
+        headers: {'User-Agent': 'Node'}
     }
 });
-
-//  **文件路径**
-const INPUT_FILE = path.join(__dirname, 'source.json');
-const OUTPUT_FILE = path.join(__dirname, 'target', 'translated.json');
 
 //  **默认语言**
 const SOURCE_LANG = 'en';
@@ -24,26 +20,25 @@ let TARGET_LANG = 'zh-CN';
 
 // **语言选项**
 const LANGUAGE_OPTIONS = [
-    { name: '🇨🇳 中文（简体）', value: 'zh-CN' },
-    { name: '🇨🇳 中文（繁体）', value: 'zh-TW' },
-    { name: '🇺🇸 英语', value: 'en' },
-    { name: '🇫🇷 法语', value: 'fr' },
-    { name: '🇪🇸 西班牙语', value: 'es' },
-    { name: '🇩🇪 德语', value: 'de' },
-    { name: '🇯🇵 日语', value: 'ja' },
-    { name: '🇰🇷 韩语', value: 'ko' },
-    { name: '🇷🇺 俄语', value: 'ru' },
-    { name: '🇮🇹 意大利语', value: 'it' },
-    { name: '🇵🇹 葡萄牙语', value: 'pt' }
+    {name: '🇨🇳 中文（简体）', value: 'zh-CN'},
+    {name: '🇨🇳 中文（繁体）', value: 'zh-TW'},
+    {name: '🇺🇸 英语', value: 'en'},
+    {name: '🇫🇷 法语', value: 'fr'},
+    {name: '🇪🇸 西班牙语', value: 'es'},
+    {name: '🇩🇪 德语', value: 'de'},
+    {name: '🇯🇵 日语', value: 'ja'},
+    {name: '🇰🇷 韩语', value: 'ko'},
+    {name: '🇷🇺 俄语', value: 'ru'},
+    {name: '🇮🇹 意大利语', value: 'it'},
+    {name: '🇵🇹 葡萄牙语', value: 'pt'}
 ];
-
 
 /**
  * **Google 翻译 API**
  */
 const googleTranslator = async (text, retries = 3) => {
     try {
-        const response = await googleTranslate(text, { from: SOURCE_LANG, to: TARGET_LANG }, { agent });
+        const response = await googleTranslate(text, {from: SOURCE_LANG, to: TARGET_LANG}, {agent});
 
         if (!response || !response.text) {
             throw new Error('Google API 返回空数据');
@@ -69,7 +64,7 @@ const batchTranslate = async (fields) => {
     console.log(`开始批量翻译 ${fields.length} 个字段`);
     let result = {};
 
-    for (const { key, value } of fields) {
+    for (const {key, value} of fields) {
         try {
             const translated = await googleTranslator(value);
             result[key] = translated;
@@ -132,20 +127,20 @@ const translateRun = async (inputJson) => {
         const lastKey = key.split('.').pop();
         if (['title', 'content'].includes(lastKey)) {
             if (lastKey === 'content') {
-                richFields.push({ key, value: flat[key] });
+                richFields.push({key, value: flat[key]});
             } else {
-                normalFields.push({ key, value: flat[key] });
+                normalFields.push({key, value: flat[key]});
             }
         }
     }
 
     const normalTranslations = await batchTranslate(normalFields);
     const richTranslations = {};
-    for (const { key, value } of richFields) {
+    for (const {key, value} of richFields) {
         richTranslations[key] = await safeTranslate(value);
     }
 
-    return unFlattenObject({ ...flat, ...normalTranslations, ...richTranslations });
+    return unFlattenObject({...flat, ...normalTranslations, ...richTranslations});
 };
 
 /**
@@ -209,10 +204,12 @@ function unFlattenObject(data) {
  * **开始翻译**
  */
 const startTranslation = async () => {
+    const INPUT_FILE = path.join(__dirname, 'locales', 'source.json');
     console.log(`读取 ${INPUT_FILE}，开始翻译到 ${TARGET_LANG}...`);
     try {
         const sourceJson = JSON.parse(fs.readFileSync(INPUT_FILE, 'utf8'));
         const translatedJson = await translateRun(sourceJson);
+        const OUTPUT_FILE = path.join(__dirname, 'locales', `${TARGET_LANG}.json`);
         fs.writeFileSync(OUTPUT_FILE, JSON.stringify(translatedJson, null, 2));
         console.log(`翻译完成，结果已写入 ${OUTPUT_FILE}`);
     } catch (err) {
