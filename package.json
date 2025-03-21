@@ -2,11 +2,13 @@
   "name": "pg-i8n-translate",
   "version": "1.0.0",
   "scripts": {
-    "google-translate": "node src/scripts/google-translate/index.js"
+    "google-translate": "node src/scripts/google-translate/index.js",
+    "deepseek-translate": "npx ts-node src/scripts/deepseek-translate/index.ts"
   },
   "license": "ISC",
   "dependencies": {
     "axios": "^0.27.2",
+    "dotenv": "^16.4.7",
     "htmlparser2": "^10.0.0",
     "inquirer": "^12.4.3",
     "language-translate": "^2.2.5",
