@@ -10,12 +10,12 @@ export default defineConfig({
   fromPath: 'locales/source/source.ts',
   translate: [
     {
+      label: '将结果翻译到locales文件夹下',
       targetConfig: [
         {
-          label: '中文',
-          targetLang: 'zh-CN',
-          outPath: 'locales/target/zh.ts'
-        }
+            targetLang: Lang['zh-CN'],
+            outPath: 'locales/target/zh.ts',
+        },
       ]
     }
   ]
