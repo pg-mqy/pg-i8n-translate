@@ -1,0 +1,13 @@
+{
+  "name": "language-translate",
+  "author": "泡椒",
+  "version": "1.0.0",
+  "description": "支持ts、js、json格式",
+  "scripts": {
+    "translate": "translate"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "language-translate": "^2.2.5"
+  }
+}

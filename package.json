@@ -1,20 +1,9 @@
 {
   "name": "pg-i8n-translate",
   "version": "1.0.0",
-  "main": "script.ts",
   "scripts": {
-    "start": "ts-node script.ts ./data/input.json ./data en",
-    "build": "tsc",
-    "i18n-translate": "translate",
-    "google-translate": "node src/scripts/GoogleTranslate/index.js"
+    "google-translate": "node src/scripts/google-translate/index.js"
   },
-  "keywords": [
-    "translate",
-    "qianwen",
-    "typescript",
-    "json"
-  ],
-  "author": "",
   "license": "ISC",
   "dependencies": {
     "axios": "^0.27.2",

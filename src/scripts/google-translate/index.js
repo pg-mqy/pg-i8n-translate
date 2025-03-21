@@ -204,12 +204,12 @@ function unFlattenObject(data) {
  * **开始翻译**
  */
 const startTranslation = async () => {
-    const INPUT_FILE = path.join(__dirname, 'locales', 'source.json');
+    const INPUT_FILE = path.join(__dirname, 'locales/source', 'source.json');
     console.log(`读取 ${INPUT_FILE}，开始翻译到 ${TARGET_LANG}...`);
     try {
         const sourceJson = JSON.parse(fs.readFileSync(INPUT_FILE, 'utf8'));
         const translatedJson = await translateRun(sourceJson);
-        const OUTPUT_FILE = path.join(__dirname, 'locales', `${TARGET_LANG}.json`);
+        const OUTPUT_FILE = path.join(__dirname, 'locales/target', `${TARGET_LANG}.json`);
         fs.writeFileSync(OUTPUT_FILE, JSON.stringify(translatedJson, null, 2));
         console.log(`翻译完成，结果已写入 ${OUTPUT_FILE}`);
     } catch (err) {
