@@ -30,7 +30,8 @@ const LANGUAGE_OPTIONS = [
     {name: '🇰🇷 韩语', value: 'ko'},
     {name: '🇷🇺 俄语', value: 'ru'},
     {name: '🇮🇹 意大利语', value: 'it'},
-    {name: '🇵🇹 葡萄牙语', value: 'pt'}
+    {name: '🇵🇹 葡萄牙语', value: 'pt'},
+    {name: '🇰🇪 斯瓦希里语', value: 'sw'},
 ];
 
 /**
